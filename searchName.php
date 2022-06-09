@@ -14,36 +14,50 @@
     <div class="container">
         <h1>Results for ID serarch</h1>
         <a class="btn btn-primary" href="test.php" role="button">Back To search</a>
-    </div>
-    <?php
-    if (!empty($_POST['searchID'])) {
 
-        $conn = new mysqli("localhost", "root", "", "test");
+        <?php
+        if (!empty($_POST['searchName'])) {
 
-        $data = array_map(array($conn, 'real_escape_string'), $_POST);
-        extract($data);
+            //Creats a database connection
+            $conn = new mysqli("localhost", "root", "", "test");
 
-
-        $sql = "SELECT * FROM customers WHERE id = $searchID";
-        $result = $conn->query($sql);
+            // Extracts data and converts to variables
+            $data = array_map(array($conn, 'real_escape_string'), $_POST);
+            extract($data);
 
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $IDV =  ("ID: "  . $row['ID'] . " ");
-                $NameV = ("Name: " . $row['FirstName'] . " " . $row['LastName'] . " ");
-                $SexV =  ("Sex: " . $row['Sex'] . "<br>");
+            $sql = "SELECT * FROM customers WHERE FirstName LIKE '%$searchName%'";
+            $result = $conn->query($sql);
+
+
+            if ($result->num_rows > 0) {
+        ?>
+                <table>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Loan amount</th>
+                    </tr>
+                    <?php
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo ("<td>: "  . $row['FirstName'] . "</td>");
+                        echo ("<td>: " . $row['LastName'] . "</td>");
+                        echo ("<td>: " . $row['LoanAmount'] . "</td>");
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
+        <?php
+
+            } else {
+                echo "0 results";
             }
         } else {
-            echo "0 results";
+            echo ("Please enter an ID");
         }
-        echo $IDV;
-    } else {
-        echo ("Please enter an ID");
-    }
-
-    ?>
-
+        ?>
+    </div>
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

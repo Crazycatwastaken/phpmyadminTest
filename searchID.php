@@ -46,11 +46,11 @@
     <div class="container">
         <br>
         <h4>
-            <?php
+            <?php 
             echo $IDV;
             echo $NameV;
             echo $SexV;
-            ?>
+             ?> 
         </h4>
     </div>
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>

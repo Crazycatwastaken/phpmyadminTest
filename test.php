@@ -35,7 +35,7 @@
             <div class="col-lg-6">
                 <h2>Search Via Name</h2><br>
                 <form action="searchName.php" method="post">
-                    <input type="text" name="searchNme" placeholder="enter Name">
+                    <input type="text" name="searchName" placeholder="enter Name">
                     <input type="submit" name="submit" value="submit">
                 </form>
             </div>
